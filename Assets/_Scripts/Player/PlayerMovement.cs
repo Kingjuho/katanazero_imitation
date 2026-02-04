@@ -1,0 +1,38 @@
+﻿using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+
+
+public class PlayerMovement : MonoBehaviour
+{
+    float _moveSpeed = 5f;
+    float _jump = 1f;
+    
+    Animator _animator;                 // Animator 컴포넌트
+    Rigidbody2D _rigidbody2D;           // Rigidbody2D 컴포넌트
+    SpriteRenderer _spriteRenderer;     // SpriteRenderer 컴포넌트
+    Vector2 _direction;                 // 이동 방향
+
+    void Start()
+    {
+        _animator = GetComponent<Animator>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _direction = Vector2.zero;
+    }
+
+    void Update()
+    {
+        KeyInput();
+    }
+
+    void KeyInput()
+    {
+        // 수평 이동 입력 처리
+        _direction.x = Input.GetAxisRaw("Horizontal");
+        if (_direction.x < 0) _spriteRenderer.flipX = true;    // 왼쪽 이동
+        else                  _spriteRenderer.flipX = false;   // 오른쪽 이동
+
+        // 이동
+        transform.Translate(_direction * _moveSpeed * Time.deltaTime);
+    }
+}
