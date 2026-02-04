@@ -1,11 +1,10 @@
-﻿using UnityEditor.Experimental.GraphView;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public class PlayerMovement : MonoBehaviour
 {
     float _moveSpeed = 5f;
-    float _jump = 1f;
+    float _jump = 5f;
     
     Animator _animator;                 // Animator 컴포넌트
     Rigidbody2D _rigidbody2D;           // Rigidbody2D 컴포넌트
@@ -22,15 +21,19 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        KeyInput();
+        Move();
     }
 
-    void KeyInput()
+    void Move()
     {
         // 수평 이동 입력 처리
         _direction.x = Input.GetAxisRaw("Horizontal");
         if (_direction.x < 0) _spriteRenderer.flipX = true;    // 왼쪽 이동
         else                  _spriteRenderer.flipX = false;   // 오른쪽 이동
+
+        // 점프 입력 처리
+        if (Input.GetKeyDown(KeyCode.Space))
+            _rigidbody2D.AddForce(Vector2.up * _jump, ForceMode2D.Impulse);
 
         // 이동
         transform.Translate(_direction * _moveSpeed * Time.deltaTime);
