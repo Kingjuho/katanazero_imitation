@@ -94,7 +94,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -108,7 +108,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 70
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -173,12 +173,12 @@ TextureImporter:
       name: player_run_10x2_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 63
-        width: 78
-        height: 62
+        x: 0
+        y: 64
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -195,12 +195,12 @@ TextureImporter:
       name: player_run_10x2_1
       rect:
         serializedVersion: 2
-        x: 97
-        y: 63
-        width: 74
-        height: 62
+        x: 88
+        y: 64
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -217,12 +217,12 @@ TextureImporter:
       name: player_run_10x2_2
       rect:
         serializedVersion: 2
-        x: 183
-        y: 71
-        width: 72
-        height: 56
+        x: 176
+        y: 64
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -239,12 +239,12 @@ TextureImporter:
       name: player_run_10x2_3
       rect:
         serializedVersion: 2
-        x: 269
-        y: 65
-        width: 68
-        height: 58
+        x: 264
+        y: 64
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -261,12 +261,12 @@ TextureImporter:
       name: player_run_10x2_4
       rect:
         serializedVersion: 2
-        x: 361
-        y: 63
-        width: 76
-        height: 60
+        x: 352
+        y: 64
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -283,12 +283,12 @@ TextureImporter:
       name: player_run_10x2_5
       rect:
         serializedVersion: 2
-        x: 449
-        y: 63
-        width: 78
+        x: 440
+        y: 64
+        width: 88
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -305,12 +305,12 @@ TextureImporter:
       name: player_run_10x2_6
       rect:
         serializedVersion: 2
-        x: 535
-        y: 71
-        width: 74
-        height: 56
+        x: 528
+        y: 64
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -327,12 +327,12 @@ TextureImporter:
       name: player_run_10x2_7
       rect:
         serializedVersion: 2
-        x: 615
-        y: 65
-        width: 76
-        height: 62
+        x: 616
+        y: 64
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -349,12 +349,12 @@ TextureImporter:
       name: player_run_10x2_8
       rect:
         serializedVersion: 2
-        x: 705
-        y: 63
-        width: 78
-        height: 58
+        x: 704
+        y: 64
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -371,12 +371,12 @@ TextureImporter:
       name: player_run_10x2_9
       rect:
         serializedVersion: 2
-        x: 795
-        y: 63
-        width: 82
-        height: 60
+        x: 792
+        y: 64
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -393,12 +393,12 @@ TextureImporter:
       name: player_run_10x2_10
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 82
-        height: 59
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -415,12 +415,12 @@ TextureImporter:
       name: player_run_10x2_11
       rect:
         serializedVersion: 2
-        x: 97
+        x: 88
         y: 0
-        width: 78
-        height: 57
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -437,12 +437,12 @@ TextureImporter:
       name: player_run_10x2_12
       rect:
         serializedVersion: 2
-        x: 189
-        y: 1
-        width: 76
-        height: 62
+        x: 176
+        y: 0
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -459,12 +459,12 @@ TextureImporter:
       name: player_run_10x2_13
       rect:
         serializedVersion: 2
-        x: 271
-        y: 7
-        width: 74
-        height: 56
+        x: 264
+        y: 0
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -481,12 +481,12 @@ TextureImporter:
       name: player_run_10x2_14
       rect:
         serializedVersion: 2
-        x: 353
+        x: 352
         y: 0
-        width: 78
-        height: 63
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -503,12 +503,12 @@ TextureImporter:
       name: player_run_10x2_15
       rect:
         serializedVersion: 2
-        x: 443
+        x: 440
         y: 0
-        width: 76
-        height: 59
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -525,12 +525,12 @@ TextureImporter:
       name: player_run_10x2_16
       rect:
         serializedVersion: 2
-        x: 543
-        y: 1
-        width: 68
-        height: 58
+        x: 528
+        y: 0
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -547,12 +547,12 @@ TextureImporter:
       name: player_run_10x2_17
       rect:
         serializedVersion: 2
-        x: 625
-        y: 7
-        width: 72
-        height: 56
+        x: 616
+        y: 0
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -569,12 +569,12 @@ TextureImporter:
       name: player_run_10x2_18
       rect:
         serializedVersion: 2
-        x: 709
+        x: 704
         y: 0
-        width: 74
-        height: 61
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -591,12 +591,12 @@ TextureImporter:
       name: player_run_10x2_19
       rect:
         serializedVersion: 2
-        x: 793
+        x: 792
         y: 0
-        width: 78
-        height: 61
+        width: 88
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -613,7 +613,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8cd3e54023f3a38498f0569fa94f7846
     internalID: 0
     vertices: []
     indices: 
@@ -621,7 +621,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":10.0,"y":2.0},"gridSpriteSize":{"x":88.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       player_run_10x2_0: 1452757757026858505
       player_run_10x2_1: -3776943150786693707

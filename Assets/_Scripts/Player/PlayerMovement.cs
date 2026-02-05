@@ -28,8 +28,12 @@ public class PlayerMovement : MonoBehaviour
     {
         // 수평 이동 입력 처리
         _direction.x = Input.GetAxisRaw("Horizontal");
-        if (_direction.x < 0) _spriteRenderer.flipX = true;    // 왼쪽 이동
-        else                  _spriteRenderer.flipX = false;   // 오른쪽 이동
+        if (_direction.x < 0)      _spriteRenderer.flipX = true;    // 왼쪽 이동
+        else if (_direction.x > 0) _spriteRenderer.flipX = false;   // 오른쪽 이동
+
+        // 애니메이션 처리
+        if (_direction.x != 0) _animator.SetBool("Run", true);
+        else                   _animator.SetBool("Run", false);
 
         // 점프 입력 처리
         if (Input.GetKeyDown(KeyCode.Space))
