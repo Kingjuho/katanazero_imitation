@@ -1157,6 +1157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc6f5ae39b06ba4985651ff197e0c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  _power: 5
+  _slash: {fileID: 6686593378458121306, guid: 8042f54069bb39940a80160a643218b0, type: 3}
 --- !u!1 &1373055601
 GameObject:
   m_ObjectHideFlags: 0
