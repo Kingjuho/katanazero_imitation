@@ -936,6 +936,7 @@ GameObject:
   - component: {fileID: 1292041390}
   - component: {fileID: 1292041393}
   - component: {fileID: 1292041392}
+  - component: {fileID: 1292041394}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1144,6 +1145,18 @@ MonoBehaviour:
   _wallLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &1292041394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292041386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc6f5ae39b06ba4985651ff197e0c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
 --- !u!1 &1373055601
 GameObject:
   m_ObjectHideFlags: 0
