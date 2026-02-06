@@ -2,42 +2,24 @@
 
 public class PlayerSlash : MonoBehaviour
 {
-    GameObject _player; // 플레이어 오브젝트
-    Vector2 MousePos;   // 마우스 위치
-    Vector3 dir;        // 플레이어, 마우스 위치의 방향 벡터
+    private Transform _player;
+    private Vector3 _offset;
 
-    float angle;        // 회전 각도
-    Vector3 dirNo;      // 단위 방향 벡터
-
-    public Vector3 direction = Vector3.right;   // 기본 방향 벡터
-
-    void Start()
+    public void Initialize(Transform player, Quaternion rotation)
     {
-        // 플레이어의 좌표값 호출
-        _player = GameObject.FindGameObjectWithTag("Player");
-        Transform playerTransform = _player.GetComponent<Transform>();
-        
-        // 마우스를 좌표로 치환
-        MousePos = Camera.main.ScreenToWorldPoint(MousePos);
-        Vector3 Pos = new Vector3(MousePos.x, MousePos.y, 0);
-        
-        // 방향 벡터(벡터의 뺄셈)
-        dir = Pos - playerTransform.position;
-
-        // 각도 구하기
-        angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        _player = player;
+        transform.position = _player.position;
+        transform.rotation = rotation;
     }
 
-    void Update()
+    private void Update()
     {
-        // 회전 적용
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        transform.position = _player.transform.position;
+        // 플레이어가 존재하면 따라다니도록
+        if (_player != null)
+            transform.position = _player.position;
+        else
+            Destroy();
     }
 
-
-    public void Destroy()
-    {
-        Destroy(gameObject);
-    }
+    public void Destroy() => Destroy(gameObject);
 }

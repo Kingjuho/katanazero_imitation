@@ -5,34 +5,33 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float _moveSpeed = 5f;                 // 이동 속도
-    [SerializeField] private float _jumpForce = 12f;                // 점프력
+    [SerializeField] private float _moveSpeed = 5f;         // 이동 속도
+    [SerializeField] private float _jumpForce = 8f;         // 점프력
 
     [Header("Wall Action Settings")]
-    [SerializeField] private float _wallSlidingSpeed = 2f;          // 벽 슬라이드 속도
-    [SerializeField] private float _wallJumpPowerX = 8f;            // 벽 점프력(X축)
-    [SerializeField] private float _wallJumpPowerY = 12f;           // 벽 점프력(Y축)
-    [SerializeField] private float _wallJumpInputFreezeTime = 0.2f; // 벽 점프 입력 대기 시간
+    [SerializeField] private float _wallSlidingSpeed = 2f;                  // 벽 슬라이드 속도
+    [SerializeField] private Vector2 _wallJumpPower = new Vector2(8f, 8f);  // 벽 점프력
+    [SerializeField] private float _wallJumpInputFreezeTime = 0.2f;         // 벽 점프 입력 대기 시간
 
     [Header("Detection Settings")]
-    [SerializeField] private Transform _groundCheckPos;             // 땅 체크 좌표
-    [SerializeField] private Transform _wallCheckPos;               // 벽 체크 좌표
-    [SerializeField] private float _checkRadius = 0.3f;             // 체크 반경
-    [SerializeField] private LayerMask _groundLayer;                // 땅 레이어
-    [SerializeField] private LayerMask _wallLayer;                  // 벽 레이어
+    [SerializeField] private Transform _groundCheckPos;     // 땅 체크 좌표
+    [SerializeField] private Transform _wallCheckPos;       // 벽 체크 좌표
+    [SerializeField] private float _checkRadius = 0.3f;     // 체크 반경
+    [SerializeField] private LayerMask _groundLayer;        // 땅 레이어
+    [SerializeField] private LayerMask _wallLayer;          // 벽 레이어
 
-    private bool _isGrounded;                                       // 착지 여부
-    private bool _isTouchingWall;                                   // 벽 밀착 여부
-    private bool _isWallSliding;                                    // 벽 슬라이드 여부
-    private bool _canMove = true;                                   // 움직임 봉인 여부
+    public bool IsGrounded { get; private set; }            // 착지 여부
+    public bool IsWallSliding { get; private set; }         // 벽 슬라이드 여부
+    public bool IsFacingRight { get; private set; } = true; // 오른쪽을 보고 있는지
+    
+    private bool _isTouchingWall;                           // 벽 밀착 여부
+    private bool _canMove = true;                           // 벽 점프 직후 제어 불능 상태
+    private float _currentInputX;                           // Controller에서 받아온 입력값
 
-    private float _horizontalInput;                                 // 좌우 입력
-    private bool _isFacingRight = true;                             // 오른쪽을 보고 있는지
+    private Rigidbody2D _rb;                                // Rigidbody 컴포넌트
+    private Animator _anim;                                 // Animator 컴포넌트
 
-    private Rigidbody2D _rb;                                        // Rigidbody 컴포넌트
-    private Animator _anim;                                         // Animator 컴포넌트
-
-    // Animator 컨디션 해시
+    // Animator 해시 최적화
     private readonly int _hashRun = Animator.StringToHash("isRunning");
     private readonly int _hashJump = Animator.StringToHash("isJumping");
     private readonly int _hashGrab = Animator.StringToHash("isGrabbing");
@@ -45,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        HandleInput();
         CheckWallSlide();
         UpdateAnimationState();
     }
@@ -56,28 +54,15 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
-    /** 플레이어 입력 처리 **/
-    private void HandleInput()
+    /** Input 핸들링 **/
+    public void SetMoveInput(float inputX) => _currentInputX = inputX;
+    public void TryJump()
     {
-        // 좌우 이동
-        _horizontalInput = Input.GetAxisRaw("Horizontal");
-
-        // 점프
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            // 땅에 있으면 점프, 벽에 있으면 벽점프
-            if (_isGrounded)
-                PerformJump(Vector2.up * _jumpForce);
-            else if (_isTouchingWall)
-                PerformWallJump();
-        }
-
-        // 방향 전환
-        if (_canMove && _horizontalInput != 0)
-        {
-            if ((_horizontalInput > 0 && !_isFacingRight) || (_horizontalInput < 0 && _isFacingRight))
-                Flip();
-        }
+        if (!_canMove) return;
+        if (IsGrounded)
+            PerformJump(Vector2.up * _jumpForce);
+        else if (IsWallSliding || (_isTouchingWall && !IsGrounded))
+            PerformWallJump();
     }
 
     /** 이동 처리 함수 **/
@@ -87,49 +72,40 @@ public class PlayerMovement : MonoBehaviour
         if (!_canMove) return;
 
         // 일반 이동 / 벽 이동
-        if (!_isWallSliding)
-            _rb.linearVelocity = new Vector2(_horizontalInput * _moveSpeed, _rb.linearVelocity.y);
+        if (!IsWallSliding)
+            _rb.linearVelocity = new Vector2(_currentInputX * _moveSpeed, _rb.linearVelocity.y);
         else
         {
             // 벽 타기 로직
-            float moveX = _horizontalInput * _moveSpeed;
-            float moveY = _rb.linearVelocity.y;
-
-            // 벽에 닿아있을 때 내려가는 속도 제한
-            if (moveY < -_wallSlidingSpeed) moveY = -_wallSlidingSpeed;
-
+            float moveX = _currentInputX * _moveSpeed;
+            float moveY = Mathf.Clamp(_rb.linearVelocity.y, -_wallSlidingSpeed, float.MaxValue);
             _rb.linearVelocity = new Vector2(moveX, moveY);
         }
-    }
 
-    /** 벽 슬라이드 체크 함수 **/
-    private void CheckWallSlide()
-    {
-        // 벽에 닿으면 즉시 인식
-        if (_isTouchingWall && !_isGrounded)
-            _isWallSliding = true;
-        else
-            _isWallSliding = false;
+        // 방향 전환 체크
+        if (_currentInputX != 0)
+            if ((_currentInputX > 0 && !IsFacingRight) || (_currentInputX < 0 && IsFacingRight))
+                Flip();
     }
 
     /** 점프 **/
     private void PerformJump(Vector2 forceDir)
     {
-        _rb.linearVelocity = Vector2.zero;
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
         _rb.AddForce(forceDir, ForceMode2D.Impulse);
     }
 
     /** 벽점프 **/
     private void PerformWallJump()
     {
-        _isWallSliding = false;
+        IsWallSliding = false;
 
-        float direction = _isFacingRight ? -1f : 1f;
-        Vector2 jumpForce = new Vector2(direction * _wallJumpPowerX, _wallJumpPowerY);
-
-        PerformJump(jumpForce);
+        // 벽 반대 방향 계산
+        float direction = IsFacingRight ? -1f : 1f;
+        Vector2 jumpForce = new Vector2(_wallJumpPower.x * direction, _wallJumpPower.y);
 
         // 점프와 동시에 방향 전환
+        PerformJump(jumpForce);
         Flip();
 
         StartCoroutine(DisableMoveRoutine());
@@ -146,14 +122,24 @@ public class PlayerMovement : MonoBehaviour
     /** 현재 땅/벽에 닿아있는지 체크 **/
     private void CheckSurroundings()
     {
-        _isGrounded = Physics2D.OverlapCircle(_groundCheckPos.position, _checkRadius, _groundLayer);
+        IsGrounded = Physics2D.OverlapCircle(_groundCheckPos.position, _checkRadius, _groundLayer);
         _isTouchingWall = Physics2D.OverlapCircle(_wallCheckPos.position, _checkRadius, _wallLayer);
+    }
+
+    /** 벽 슬라이드 체크 함수 **/
+    private void CheckWallSlide()
+    {
+        // 벽에 닿으면 즉시 인식
+        if (_isTouchingWall && !IsGrounded)
+            IsWallSliding = true;
+        else
+            IsWallSliding = false;
     }
 
     /** 방향 전환 **/
     private void Flip()
     {
-        _isFacingRight = !_isFacingRight;
+        IsFacingRight = !IsFacingRight;
         Vector3 scaler = transform.localScale;
         scaler.x *= -1;
         transform.localScale = scaler;
@@ -162,14 +148,14 @@ public class PlayerMovement : MonoBehaviour
     /** 애니메이션 상태 변경 **/
     private void UpdateAnimationState()
     {
-        // [핵심 수정] 벽 타기 중이면 '달리기' 애니메이션 강제 off
-        bool isRunning = Mathf.Abs(_horizontalInput) > 0.1f && !_isWallSliding;
+        // 벽 타기 중이면 달리기 애니메이션 강제 off
+        bool isRunning = Mathf.Abs(_currentInputX) > 0.1f && !IsWallSliding;
         _anim.SetBool(_hashRun, isRunning);
 
-        bool isJumping = !_isGrounded && !_isWallSliding;
+        bool isJumping = !IsGrounded && !IsWallSliding;
         _anim.SetBool(_hashJump, isJumping);
 
-        _anim.SetBool(_hashGrab, _isWallSliding);
+        _anim.SetBool(_hashGrab, IsWallSliding);
     }
 
     /** 디버깅용 기즈모 그리기 함수 **/
